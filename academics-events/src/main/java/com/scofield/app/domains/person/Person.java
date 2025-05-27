@@ -4,8 +4,8 @@ public class Person{
     private static long peopleAmount;
     protected long id;
     protected String name;
-    protected String cpf;
-
+    protected String cpf;  
+    
     public Person(String name, String cpf){
         validate(name, cpf);
 
@@ -21,6 +21,18 @@ public class Person{
         if(!validateCpf(cpf)){
             throw new IllegalArgumentException("Invalid CPF");
         }
+    }
+
+    public long getId(){
+        return this.id;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public String getCpf(){
+        return this.cpf;
     }
 
     public static boolean validateCpf(String cpf) {
