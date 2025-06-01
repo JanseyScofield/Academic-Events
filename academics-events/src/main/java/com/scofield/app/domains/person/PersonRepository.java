@@ -17,9 +17,9 @@ public class PersonRepository implements IRepository<Person>{
                             .orElse(null);                   
     }
 
-    public boolean register(Object o){
-        if(!(o instanceof Person) || o == null) return false;
+    public Person register(Object o){
+        
         personHasSet.add((Person) o);
-        return true;
+        return Person;
     }
 }

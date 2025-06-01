@@ -5,5 +5,5 @@ import java.util.HashSet;
 public interface IRepository<T> {
     public HashSet<T> getAll();
     public T getById(long id);
-    public boolean register(Object o);
+    public T register(Object o);
 }
