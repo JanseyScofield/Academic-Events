@@ -27,4 +27,6 @@ public abstract class Service<T  extends IIdentifiedEntity> {
 
         return response;
     }
+
+    public abstract IIdentifiedEntity register(String name, String cpf, Object paramObject); 
 }
