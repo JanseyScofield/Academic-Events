@@ -1,6 +1,8 @@
 package com.scofield.app.domains.person;
 
-public class Person{
+import com.scofield.app.domains.interfaces.IIdentifiedEntity;
+
+public class Person implements IIdentifiedEntity{
     private static long peopleAmount;
     protected long id;
     protected String name;
@@ -36,7 +38,7 @@ public class Person{
     }
 
     public static boolean validateCpf(String cpf) {
-        if (cpf == null || !cpf.count() == 11) {
+        if (cpf == null || !(cpf.length() == 11)) {
             return false;
         }
 

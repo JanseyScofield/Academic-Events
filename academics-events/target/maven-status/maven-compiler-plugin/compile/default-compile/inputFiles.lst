@@ -1,1 +1,13 @@
 /workspaces/Academic-Events/academics-events/src/main/java/com/scofield/app/App.java
+/workspaces/Academic-Events/academics-events/src/main/java/com/scofield/app/domains/abstracts/Repository.java
+/workspaces/Academic-Events/academics-events/src/main/java/com/scofield/app/domains/event/Event.java
+/workspaces/Academic-Events/academics-events/src/main/java/com/scofield/app/domains/event/OnlineEvent.java
+/workspaces/Academic-Events/academics-events/src/main/java/com/scofield/app/domains/interfaces/IIdentifiedEntity.java
+/workspaces/Academic-Events/academics-events/src/main/java/com/scofield/app/domains/person/ExternalParticipant.java
+/workspaces/Academic-Events/academics-events/src/main/java/com/scofield/app/domains/person/Person.java
+/workspaces/Academic-Events/academics-events/src/main/java/com/scofield/app/domains/person/PersonRepository.java
+/workspaces/Academic-Events/academics-events/src/main/java/com/scofield/app/domains/person/Professor.java
+/workspaces/Academic-Events/academics-events/src/main/java/com/scofield/app/domains/person/Student.java
+/workspaces/Academic-Events/academics-events/src/main/java/com/scofield/app/services/abstratcs/Service.java
+/workspaces/Academic-Events/academics-events/src/main/java/com/scofield/app/services/person/PersonService.java
+/workspaces/Academic-Events/academics-events/src/main/java/com/scofield/app/services/person/StudentService.java
