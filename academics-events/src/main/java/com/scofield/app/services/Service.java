@@ -1,4 +1,4 @@
-package com.scofield.app.services.abstratcs;
+package com.scofield.app.services;
 
 import java.util.HashSet;
 import com.scofield.app.domains.abstracts.Repository;
@@ -27,6 +27,4 @@ public abstract class Service<T  extends IIdentifiedEntity> {
 
         return response;
     }
-
-    public abstract IIdentifiedEntity register(String name, String cpf, Object paramObject); 
 }

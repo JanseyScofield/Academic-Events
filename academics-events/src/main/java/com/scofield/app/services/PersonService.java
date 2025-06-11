@@ -1,21 +1,21 @@
-package com.scofield.app.services.person;
+package com.scofield.app.services;
 
 
 import com.scofield.app.domains.person.PersonRepository;
 import com.scofield.app.domains.person.Professor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import com.scofield.app.domains.event.Event;
 import com.scofield.app.domains.person.ExternalParticipant;
 import com.scofield.app.domains.person.Person;
 import com.scofield.app.domains.person.Student;
-import com.scofield.app.services.abstratcs.Service;
 
 public class PersonService extends Service<Person>{
     public PersonService(PersonRepository repository ){
         super(repository);
     }
 
-    @Override
     public Person register(String name, String cpf, Object objectParams){
         try{
             Person newPerson;
@@ -38,14 +38,31 @@ public class PersonService extends Service<Person>{
                 newPerson = new ExternalParticipant(name,  cpf, (Integer)objectParams);
             }
             else{
-                throw new IllegalArgumentException("Invalid params to register a person");
+                throw new IllegalArgumentException("Invalid params to register an person");
             }       
              
             repository.register(newPerson);
             return newPerson;
         }catch (IllegalArgumentException ex){
             throw new IllegalArgumentException("Error to register an student: " + ex.getMessage());
+        }     
+    }
+
+    public HashSet<Event> getAllEventsPerson(long personId){
+        Person person = (Person)repository.getById(personId);
+        if(person == null){
+            throw new IllegalArgumentException("Person doesn't exist");
         }
-        
+        return person.getEvents();
+    
+    }
+    
+    public Event addEventPerson(long personId, Event event){
+        Person person = (Person)repository.getById(personId);
+        if(person == null){
+            throw new IllegalArgumentException("Person doesn't exist");
+        }
+        person.addEvent(event);
+        return event;
     }
 }

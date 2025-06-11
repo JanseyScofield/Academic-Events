@@ -1,13 +1,20 @@
 package com.scofield.app;
 
 import com.scofield.app.domains.person.PersonRepository;
-import com.scofield.app.services.person.PersonService;
+import com.scofield.app.services.EventService;
+import com.scofield.app.services.PersonService;
+import com.scofield.app.domains.event.EventRepository;
+import com.scofield.app.domains.person.Person;
+import com.scofield.app.domains.event.Event;
 import com.scofield.app.ui.Ui;
+import java.util.HashSet;
 
 public class App {
     public static void main(String[] args) {
         PersonRepository personRepository = new PersonRepository();
         PersonService personService = new PersonService(personRepository);
+        EventRepository eventRepository = new EventRepository();
+        EventService eventService = new EventService(eventRepository);
 
         boolean finishProgram = false;
         while (!finishProgram) {
@@ -16,12 +23,14 @@ public class App {
                 case 1:
                     boolean exitEventModule = false;
                     while(!exitEventModule){
-                        int optionEvent = Ui.managePersonMenu();
+                        int optionEvent = Ui.manageEventMenu();
                         switch(optionEvent){
                             case 1:
-                                Ui.printAll(personService);
+                                HashSet<Event> hashSetEvent = eventService.getAll();
+                                Ui.printAll(hashSetEvent);
                                 break;
-                            case 2: 
+                            case 2:
+                                Ui.registerEvent(eventService);
                                 break;
                             case 3:
                                 break;
@@ -38,7 +47,8 @@ public class App {
                         int optionPerson = Ui.managePersonMenu();
                         switch(optionPerson){
                             case 1:
-                                Ui.printAll(personService);
+                                HashSet<Person> hashSetPerson = personService.getAll();
+                                Ui.printAll(hashSetPerson);
                                 break;
                             case 2: 
                                 Ui.registerPerson(personService);

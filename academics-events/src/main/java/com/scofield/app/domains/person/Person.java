@@ -1,12 +1,16 @@
 package com.scofield.app.domains.person;
 
+import java.util.HashSet;
+
 import com.scofield.app.domains.interfaces.IIdentifiedEntity;
+import com.scofield.app.domains.event.Event;
 
 public class Person implements IIdentifiedEntity{
     private static long peopleAmount;
     protected long id;
     protected String name;
-    protected String cpf;  
+    protected String cpf;
+    protected HashSet<Event> events = new HashSet<Event>();
     
     public  Person(String name, String cpf){
         validate(name, cpf);
@@ -35,6 +39,10 @@ public class Person implements IIdentifiedEntity{
 
     public String getCpf(){
         return this.cpf;
+    }
+
+    public HashSet<Event> getEvents(){
+        return this.events;
     }
 
     public void printInformation(){
@@ -68,5 +76,13 @@ public class Person implements IIdentifiedEntity{
         if (digito2 >= 10) digito2 = 0;
             
         return cpf.charAt(9) - '0' == digito1 && cpf.charAt(10) - '0' == digito2;
+    }
+
+    public Event addEvent(Event event){
+        if(event == null){
+            throw new IllegalArgumentException("Event can't be null");
+        }
+        this.events.add(event);
+        return event; 
     }
 }

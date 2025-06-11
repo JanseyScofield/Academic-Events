@@ -3,6 +3,7 @@ package com.scofield.app.domains.event;
 import java.time.LocalDate;
 import java.util.HashSet;
 
+import com.scofield.app.domains.event.eventsTypes.IEventType;
 import com.scofield.app.domains.interfaces.IIdentifiedEntity;
 import com.scofield.app.domains.person.Person;
 
@@ -11,39 +12,39 @@ public class Event implements IIdentifiedEntity{
     protected long id;
     protected String title;
     protected LocalDate date;
-    protected String place;
     protected HashSet<Person> participants = new HashSet<Person>();
     protected HashSet<Person> speakers = new HashSet<Person>();
+    protected IEventType eventType;
     protected int capacity;
 
     protected String description;
     
-    public Event(String title, LocalDate date, String place, int capacity, String description){
-        validate(title, date, place, capacity, description);
+    public Event(String title, LocalDate date, int capacity, String description, IEventType eventType){
+        validate(title, date, capacity, description, eventType);
 
         this.id = ++eventAmount;
         this.title = title;
         this.date = date;
-        this.place = place;
         this.capacity = capacity;
         this.description = description;
+        this.eventType = eventType;
     }
 
-    private void validate(String title, LocalDate date, String place, int capacity, String description){
+    private void validate(String title, LocalDate date, int capacity, String description, IEventType eventType){
         if(title.isEmpty() || title == null){
             throw new IllegalArgumentException("Title can't be null or empty");
         }
         if(date == null){
             throw new IllegalArgumentException("Date can't be null or empty");
         }
-        if(place.isEmpty() || place == null){
-            throw new IllegalArgumentException("Place can't be null or empty");
-        }
         if(capacity < 2){
             throw new IllegalArgumentException("Capacity can´t be less than two");
         }
         if(description.isEmpty() || description == null){
             throw new IllegalArgumentException("Description can't be null or empty");
+        }
+        if(eventType == null){
+            throw new IllegalArgumentException("Event type can't be null or empty");
         }
     }
 
@@ -53,6 +54,14 @@ public class Event implements IIdentifiedEntity{
 
     public String getName() {
         return this.title;
+    }
+
+    public HashSet<Person> getSpeakers(){
+        return this.speakers;
+    }
+
+    public HashSet<Person> getParticipants(){
+        return this.participants;
     }
 
     public void printInformation(){

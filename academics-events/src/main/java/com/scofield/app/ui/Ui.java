@@ -2,13 +2,21 @@ package com.scofield.app.ui;
 
 import java.util.HashSet;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import com.scofield.app.domains.person.Person;
 import javax.imageio.IIOException;
-
+import com.scofield.app.domains.event.Event;
+import com.scofield.app.domains.event.eventsTypes.Course;
+import com.scofield.app.domains.event.eventsTypes.Fair;
+import com.scofield.app.domains.event.eventsTypes.IEventType;
+import com.scofield.app.domains.event.eventsTypes.Lecture;
+import com.scofield.app.domains.event.eventsTypes.Workshop;
 import com.scofield.app.domains.interfaces.IIdentifiedEntity;
-import com.scofield.app.services.abstratcs.Service;
-import com.scofield.app.services.person.PersonService;
+import com.scofield.app.services.EventService;
+import com.scofield.app.services.PersonService;
+import com.scofield.app.services.Service;
 
 public class Ui{
     private static final Scanner scanner = new Scanner(System.in);
@@ -49,13 +57,12 @@ public class Ui{
         return getOption(1, 4);
     }
 
-    public static void printAll(Service service){
-        HashSet<IIdentifiedEntity> entities = service.getAll();
-        if(entities.size() == 0){
+    public static void printAll(HashSet<? extends IIdentifiedEntity> hashSet){
+        if(hashSet.size() == 0){
             System.out.println("Don't have registred");
             return;
         }
-        for(IIdentifiedEntity entity : entities){
+        for(IIdentifiedEntity entity : hashSet){
             entity.printInformation();
         }
     }
@@ -66,7 +73,10 @@ public class Ui{
         System.out.println("2 - Professor");
         System.out.println("3 - External Participant");
         System.out.println("4 - Exit");
-        int option = getOption(1,3);
+        int option = getOption(1,4);
+        if(option == 4){
+            return;
+        }
 
         System.out.println("Type name:");
         String name = scanner.nextLine();
@@ -85,7 +95,7 @@ public class Ui{
                     System.out.println("Type the subject: ");
                     String newSubject = scanner.nextLine();
                     listSubjects.add(newSubject);
-                    System.out.println("Continue? 1 - Yes/ 2 - No");
+                    System.out.println("Add more subjects? 1 - Yes/ 2 - No");
                     exitAddSubjects = getOption(1, 2) == 2;
                 }
                 paramObject = listSubjects;
@@ -94,8 +104,6 @@ public class Ui{
                 System.out.println("Type registration number:");
                 paramObject = (Integer)Integer.parseInt(scanner.nextLine());
                 break;
-            case 4:
-                return;
         }
 
         try{
@@ -107,6 +115,78 @@ public class Ui{
             System.out.println("Erro in register an person: " + ex.getMessage());
         }
         
+    }
+
+    public static void registerEvent(EventService service){
+        System.out.println("What modality of event do you want to register?");
+        System.out.println("1 - In Person");
+        System.out.println("2 - Online");
+        System.out.println("3 - Hybrid");
+        System.out.println("4 - Exit");
+        int modality = getOption(1,4);
+        if(modality == 4){
+            return;
+        }
+
+        System.out.println("Type title: ");
+        String title = scanner.nextLine();
+        System.out.print("Type the date in this format MM/dd/yyyy: ");
+        String stringDate = scanner.nextLine();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate date = LocalDate.parse(stringDate, formatter);
+        System.out.println("Type the capacity:");
+        int capacity = Integer.parseInt(scanner.nextLine());
+        System.out.print("Type the description: ");
+        String description = scanner.nextLine();
+        System.out.println("Choose the event type:");
+        System.out.println("1 - Course");
+        System.out.println("2 - Fair");
+        System.out.println("3 - Lecture");
+        System.out.println("4 - Workshop");
+        int eventTypeOption = getOption(1, 4);
+        IEventType eventType = new Workshop();
+
+        switch (eventTypeOption) {
+            case 1:
+                eventType = new Course();
+                break;
+            case 2:
+                eventType = new Fair();
+                break;
+            case 3:
+                eventType = new Lecture();
+                break;
+            case 4: 
+                eventType = new Workshop();
+                break;
+        }
+
+        String[] argsPlaces = new String[2];
+        switch(modality){
+            case 1:
+                System.out.println("Type the place:");
+                argsPlaces[0] = scanner.nextLine();
+            break;
+            case 2:
+                System.out.println("Type the plataform stream: ");
+                argsPlaces[0] = scanner.nextLine();
+            break;
+            case 3:
+                System.out.println("Type the place:");
+                argsPlaces[0] = scanner.nextLine();
+                System.out.println("Type the plataform stream: ");
+                argsPlaces[1] = scanner.nextLine();
+            break;
+        }
+
+        try{
+            Event newEvent = service.register(title, date, capacity, description, eventType, argsPlaces, modality);
+            System.out.println("New event has been registred");
+            newEvent.printInformation();
+        }
+        catch(Throwable ex){
+            System.out.println("Erro in register a event: " + ex.getMessage());
+        }
     }
 
     private static int getOption(int minOption, int maxOption){ 
