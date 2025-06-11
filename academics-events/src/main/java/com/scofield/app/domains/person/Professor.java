@@ -20,4 +20,14 @@ public class Professor extends Person{
     public ArrayList<String> getSubjects(){
         return this.subjects;
     }
+
+    public void printInformation(){
+        System.out.println("Professor: ");
+        super.printInformation();
+        System.out.println("Subjects:");
+        for(String subject : subjects) {
+            System.out.println("- " + subject);
+        }
+        System.out.println("------------------");
+    }
 }

@@ -18,4 +18,11 @@ public class Student extends Person{
     public String getRegistrationNumber(){
         return this.registrationNumber;
     }
+
+    public void printInformation(){
+        System.out.println("Student:");
+        super.printInformation();
+        System.out.println("Registration Number: " + this.registrationNumber);
+        System.out.println("------------------");
+    }
 }

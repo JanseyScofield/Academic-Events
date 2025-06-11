@@ -1,29 +1,28 @@
 package com.scofield.app.domains.person;
 
 public class ExternalParticipant extends Person{
-    private String authorizationToken;
+    private Integer authorizationToken;
     
-    public ExternalParticipant(String name, String cpf, String authorizationToken){
+    public ExternalParticipant(String name, String cpf, Integer authorizationToken){
         super(name, cpf);
         validateAuthorizationToken(authorizationToken);
         this.authorizationToken = authorizationToken;
     }
 
-    private void validateAuthorizationToken(String authorizationToken){
-        if(authorizationToken.isEmpty() || authorizationToken == null){
-            throw new IllegalArgumentException("Authorization Token can't be null or empty");
-        }
-
-        if(authorizationToken.length() != 10){
-            throw new IllegalArgumentException("Authorization Token size invalid");
-        }
-
-        if(authorizationToken.startsWith("01") || authorizationToken.endsWith("02")){
-            throw new IllegalArgumentException("Authorization Token format invalid");
+    private void validateAuthorizationToken(int authorizationToken){
+        if(authorizationToken <= 0 || authorizationToken > 2000){
+            throw new IllegalArgumentException("Authorization token invalid");
         }
     }
 
-    public String getAuthorizationToken(){
+    public Integer getAuthorizationToken(){
         return this.authorizationToken;
+    }
+
+    public void printInformation(){
+        System.out.println("External Participant: ");
+        super.printInformation();
+        System.out.println("Authorization Token: " + this.authorizationToken);
+        System.out.println("------------------");
     }
 }

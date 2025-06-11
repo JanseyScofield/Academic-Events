@@ -8,7 +8,7 @@ public class Person implements IIdentifiedEntity{
     protected String name;
     protected String cpf;  
     
-    public Person(String name, String cpf){
+    public  Person(String name, String cpf){
         validate(name, cpf);
 
         this.id = ++peopleAmount;
@@ -37,6 +37,13 @@ public class Person implements IIdentifiedEntity{
         return this.cpf;
     }
 
+    public void printInformation(){
+        System.out.println("------------------");
+        System.out.println("Code: " + this.id);
+        System.out.println("Name: " + this.name);
+        System.out.println("CPF: " + this.cpf);
+    }
+    
     public static boolean validateCpf(String cpf) {
         if (cpf == null || !(cpf.length() == 11)) {
             return false;
