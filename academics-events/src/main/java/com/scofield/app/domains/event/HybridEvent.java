@@ -2,6 +2,7 @@ package com.scofield.app.domains.event;
 
 import java.time.LocalDate;
 
+import org.apache.commons.lang3.StringUtils;
 import com.scofield.app.domains.event.eventsTypes.IEventType;
 
 public class HybridEvent extends Event{
@@ -13,7 +14,8 @@ public class HybridEvent extends Event{
         super(title, date, capacity, description, eventType);
         validatePlataformStreamPlace(platformStream, place);
         this.platformStream = platformStream;
-        this.link = "www." + platformStream + ".com/" + id;
+        this.link = "www." + platformStream.toLowerCase() + ".com/" + StringUtils.trim(title).toLowerCase();
+
     }
 
     public void validatePlataformStreamPlace(String platformStream, String place){

@@ -3,6 +3,7 @@ package com.scofield.app.domains.event;
 import java.time.LocalDate;
 
 import com.scofield.app.domains.event.eventsTypes.IEventType;
+import org.apache.commons.lang3.StringUtils;
 
 public class OnlineEvent extends Event{
     protected String platformStream;
@@ -12,7 +13,7 @@ public class OnlineEvent extends Event{
         super(title, date, capacity, description, eventType);
         validatePlataformStream(platformStream);
         this.platformStream = platformStream;
-        this.link = "www." + platformStream.toLowerCase() + ".com/" + id;
+        this.link = "www." + platformStream.toLowerCase() + ".com/" + StringUtils.trim(title).toLowerCase();
     }
 
     private void validatePlataformStream(String platformStream){
