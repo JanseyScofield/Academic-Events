@@ -56,6 +56,14 @@ public class Event implements IIdentifiedEntity{
         return this.title;
     }
 
+    public LocalDate getDate(){
+        return this.date;
+    }
+
+    public String getType(){
+        return eventType.getClass().getSimpleName();
+    }
+
     public HashSet<Person> getSpeakers(){
         return this.speakers;
     }
@@ -104,6 +112,11 @@ public class Event implements IIdentifiedEntity{
         if(participant == null){
             throw new IllegalArgumentException("Participant can't be null");
         }
+
+        if(participants.size() == capacity){
+            throw new IllegalArgumentException("The event is full");
+        }
+
         this.participants.add(participant);
         return participant; 
     } 

@@ -6,12 +6,13 @@ import com.scofield.app.domains.event.eventsTypes.IEventType;
 
 public class OnlineEvent extends Event{
     protected String platformStream;
-    protected String link = "www." + platformStream + ".com/" + title;
+    protected String link;
 
     public OnlineEvent(String title, LocalDate date, int capacity, String description, String platformStream, IEventType eventType){
         super(title, date, capacity, description, eventType);
         validatePlataformStream(platformStream);
         this.platformStream = platformStream;
+        this.link = "www." + platformStream.toLowerCase() + ".com/" + id;
     }
 
     private void validatePlataformStream(String platformStream){

@@ -44,7 +44,7 @@ public class PersonService extends Service<Person>{
             repository.register(newPerson);
             return newPerson;
         }catch (IllegalArgumentException ex){
-            throw new IllegalArgumentException("Error to register an student: " + ex.getMessage());
+            throw new IllegalArgumentException("Error to register an person: " + ex.getMessage());
         }     
     }
 
@@ -57,11 +57,7 @@ public class PersonService extends Service<Person>{
     
     }
     
-    public Event addEventPerson(long personId, Event event){
-        Person person = (Person)repository.getById(personId);
-        if(person == null){
-            throw new IllegalArgumentException("Person doesn't exist");
-        }
+    public Event addEventPerson(Person person, Event event){
         person.addEvent(event);
         return event;
     }

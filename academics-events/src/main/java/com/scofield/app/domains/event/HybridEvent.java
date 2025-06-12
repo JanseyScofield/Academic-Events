@@ -7,12 +7,13 @@ import com.scofield.app.domains.event.eventsTypes.IEventType;
 public class HybridEvent extends Event{
     protected String place;
     protected String platformStream;
-    protected String link = "www." + platformStream + ".com/" + title;
+    protected String link;
 
     public HybridEvent(String title, LocalDate date, int capacity, String description, String platformStream, String place, IEventType eventType){
         super(title, date, capacity, description, eventType);
         validatePlataformStreamPlace(platformStream, place);
         this.platformStream = platformStream;
+        this.link = "www." + platformStream + ".com/" + id;
     }
 
     public void validatePlataformStreamPlace(String platformStream, String place){

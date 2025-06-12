@@ -11,6 +11,7 @@ import java.util.HashSet;
 
 public class App {
     public static void main(String[] args) {
+        Ui.clearConsole();
         PersonRepository personRepository = new PersonRepository();
         PersonService personService = new PersonService(personRepository);
         EventRepository eventRepository = new EventRepository();
@@ -30,9 +31,10 @@ public class App {
                                 Ui.printAll(hashSetEvent);
                                 break;
                             case 2:
-                                Ui.registerEvent(eventService);
+                                Ui.eventDashboard(eventService);
                                 break;
                             case 3:
+                                Ui.registerEvent(eventService);
                                 break;
                             case 4:
                                 Ui.clearConsole();
@@ -54,8 +56,10 @@ public class App {
                                 Ui.registerPerson(personService);
                                 break;
                             case 3:
+                                Ui.generateCertificate(personService, eventService);
                                 break;
-                            case 4: 
+                            case 4:
+                                Ui.registerPersonEvent(personService, eventService);
                                 break;
                             case 5:
                                 Ui.clearConsole();

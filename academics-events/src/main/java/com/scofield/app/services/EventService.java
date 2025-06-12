@@ -53,4 +53,14 @@ public class EventService extends Service<Event>{
         }
         return event.getParticipants();
     }
+
+    public Person addParticipantEvent(Person person, Event event){
+        event.addParticipant(person);
+        return person;
+    }
+
+    public Person addSpeakerEvent(Person person, Event event){
+        event.addSpeaker(person);
+        return person;
+    }
 }
